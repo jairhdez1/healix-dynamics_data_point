@@ -1,27 +1,30 @@
-/** [dbo].[InvoiceHeader] */
-SELECT invGp.invoicegroupnumber AS Invoice_Number,
-  trnBillAdd.label AS Site_Label,
-  DATEFROMPARTS(
-    year(invGp.trandate),
-    month(invGp.trandate),
-    '01'
-  ) AS Invoice_Start_Date,
-  CONVERT(varchar, EOMONTH(invGp.trandate), 120) AS Invoice_End_Date,
-  trnBillAdd.label AS Site_Recipient,
-  trnBillAddEnt.addressee AS Site_Name,
-  trnBillAddEnt.addrtext AS Site_Address,
-  trnBillAddEnt.zip AS Site_Zip_Code,
-  trnBillAddEnt.city AS Site_City,
-  trnBillAddEnt.state AS Site_State,
-  invGp.total AS Invoice_Total,
-  invGp.duedate AS Invoice_Due_Date,
-  invGp.trandate AS Date_Invoice_First_Generated,
-  'createdby' AS CreatedBy,
-  'createddate' AS CreatedDate,
-  CONCAT(emp.firstname, CONCAT(' ', emp.lastname)) AS LastModifiedBy,
-  invGp.lastmodifieddate AS LastModifiedDate
-FROM [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[InvoiceGroup] AS invGp
-  INNER JOIN [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[transactionBillingAddressbook] AS trnBillAdd ON trnBillAdd.internalid = invGp.billaddresslist
-  INNER JOIN [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[transactionBillingAddressbookEntityAddress] AS trnBillAddEnt ON trnBillAddEnt.nkey = trnBillAdd.addressbookaddress
-  INNER JOIN [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[entity] AS emp ON emp.id = invGp.lastmodifiedby
-WHERE invGp.invoicegroupnumber = 'IG-000002'
+SELECT '' AS [Record_ID] ,
+  trn.tranid AS [Statement_Number],
+  cAddB.label AS [Site],
+  CASE WHEN applyTrn.tranid IS NULL THEN applyTrn.transactionnumber ELSE applyTrn.tranid END  AS [Invoice_Number]
+  ,CAST(applyTrn.trandate AS date) AS [Invoice_Date]  
+ ,applyTrn.memo AS [Invoice_Description]  
+ ,CAST(ABS(applyTrn.foreigntotal) AS float) AS [Invoice_Balance],
+ CONCAT(
+    createdby.firstname,
+    CONCAT(' ', createdby.lastname)
+  ) AS [CreatedBy],
+  CAST(trn.createddate AS date) AS [CreatedDate],
+  CONCAT(
+    updatedby.firstname,
+    CONCAT(' ', updatedby.lastname)
+  ) AS [LastModifiedBy],
+  CAST(trn.lastmodifieddate AS date) AS [LastModifiedDate],
+  '' AS [Deleted],
+  '' AS [Confirm]
+FROM [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[transaction] AS trn
+  INNER JOIN [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[PreviousTransactionLink] AS pTrnLink ON pTrnLink.nextdoc = trn.id
+  INNER JOIN [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[transaction] AS applyTrn ON applyTrn.id = pTrnLink.previousdoc
+  INNER JOIN [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[customerAddressbook] AS cAddB ON cAddB.entity = trn.entity
+  INNER JOIN [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[entity] AS createdby ON createdby.id = trn.createdby
+  INNER JOIN [HEALIX_SB1].[Healix, LLC__SB1_HLX].[HEALIX - SuiteConnect].[entity] AS updatedby ON updatedby.id = trn.lastmodifiedby
+WHERE (
+    trn.recordtype = 'creditmemo'
+    OR trn.recordtype = 'customerpayment'
+  )
+  AND cAddB.defaultbilling = 'T'

@@ -19,6 +19,36 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
+        <FileNode Name="Invoice Details Scenario 1-2.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-TN6TM3P\MSSQLSERVER11:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-TN6TM3P\MSSQLSERVER11</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>Invoice Details Scenario 1-2.sql</FullPath>
+        </FileNode>
+        <FileNode Name="PJINVHDR.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-TN6TM3P\MSSQLSERVER11:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-TN6TM3P\MSSQLSERVER11</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>PJINVHDR.sql</FullPath>
+        </FileNode>
+        <FileNode Name="Query for ClientStatements 2.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-TN6TM3P\MSSQLSERVER11:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-TN6TM3P\MSSQLSERVER11</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>Query for ClientStatements 2.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SQL Query for ClientStatements.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-TN6TM3P\MSSQLSERVER11:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-TN6TM3P\MSSQLSERVER11</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>SQL Query for ClientStatements.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SQLQuery2.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-TN6TM3P\MSSQLSERVER11:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-TN6TM3P\MSSQLSERVER11</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>SQLQuery2.sql</FullPath>
+        </FileNode>
         <FileNode Name="SQLQuery4.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-TN6TM3P\MSSQLSERVER11:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-TN6TM3P\MSSQLSERVER11</AssociatedConnSrvName>
